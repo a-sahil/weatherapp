@@ -11,15 +11,11 @@ mongoose.connect("mongodb://localhost:27017/WeatherData")
 const LogInSchema=new mongoose.Schema({
     name:{
         type:String,
-        requird: [true, "Please provide name"]
-
     },
     password:{
-        type:String,
-        requird: [true, "Please provide password"],
-        unique: true 
+        type:String, 
     },
-    weatherSchema: [{ cityName: String, temperature: Number, desc: String}]
+     weatherInfo: [{ cityName: String, temperature: Number, desc: String}]
 });
 // const weatherSchema = new mongoose.Schema({
 //   cityName: {
@@ -31,11 +27,10 @@ const LogInSchema=new mongoose.Schema({
 //   desc: {
 //       type: String
 //   },
-
 // });
 
 const collection = mongoose.model('Collection1', LogInSchema);
 // const weatherCollection = mongoose.model('WeatherCollection1', weatherSchema);
 // module.exports = {collection  , weatherCollection}
 
- module.exports = collection;
+  module.exports = collection;

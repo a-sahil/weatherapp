@@ -24,9 +24,8 @@ app.get('/', (req , res) => {
 app.post("/signup", async(req , res) => {
    const data = {
     name: req.body.name,
-    password: req.body.password
+    password: req.body.password,
    }
-
     await collection.insertMany([data])
     res.render("home")
 
@@ -76,8 +75,7 @@ app.post('/',  (req, res) => {
                 temperature: temp,
                 desc: description
             };
-
-            await collection.insertMany([newData]);
+            
       });
   });
 });

@@ -1,47 +1,31 @@
-const {mongoose , Schema} =require("mongoose")
+const mongoose = require('mongoose');
 
-mongoose.connect("mongodb://localhost:27017/WeatherData")
-.then(()=>{
-    console.log('mongoose connected');
-})
-.catch((e)=>{
-    console.log('failed');
-})
-// const weatherSchema = new mongoose.Schema({
-//   cityName: {
-//       type: String
-//   },
-//   temperature: {
-//       type: Number
-//   },
-//   desc: {
-//       type: String
-//   },
-// });
+mongoose.connect('mongodb://localhost:27017/WeatherData')
+    .then(() => console.log('mongoose connected'))
+    .catch((e) => console.log('failed', e));
 
-const LogInSchema=new mongoose.Schema({
-    name:{
-        type:String,
+const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique :true,
     },
-    password:{
-        type:String, 
-    },
-    weather: [{
-        cityName: {
-            type: String
-        },
-        temperature: {
-            type: Number
-        },
-        desc: {
-            type: String
-        },
-      }]
+    weatherData: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Weather',
+    }]
 });
 
+const weatherSchema = new mongoose.Schema({
+    cityName: String,
+    temperature: Number,
+    desc: String,
+});
 
-const collection = mongoose.model('Collection1', LogInSchema);
-// const weatherCollection = mongoose.model('WeatherCollection1', weatherSchema);
-// module.exports = {collection  , weatherCollection}
+const UserCollection = mongoose.model('User', userSchema);
+const WeatherCollection = mongoose.model('Weather', weatherSchema);
 
- module.exports = collection;
+module.exports = {
+    UserCollection,
+    WeatherCollection
+};
